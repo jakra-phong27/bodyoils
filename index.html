@@ -40,6 +40,10 @@
   </script>
 
   <style>
+    /* INCREASING BASE FONT SIZE BY 2 POINTS (Globally scales typography beautifully) */
+    html {
+      font-size: 18px; /* Default is 16px, increased by 2px for better readability */
+    }
     body {
       font-family: 'Kanit', sans-serif;
       background-color: #FAF6F0;
@@ -58,7 +62,7 @@
     .chart-container {
       position: relative;
       width: 100%;
-      height: 300px;
+      height: 350px;
     }
     .tab-btn.active {
       border-color: #D4AF37;
@@ -81,7 +85,7 @@
 <body class="selection:bg-brand-gold selection:text-white">
 
   <!-- NAVIGATION BAR (Unified with Dual Mode Toggle) -->
-  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-brand-cream/90 backdrop-blur-md border-b border-stone-200/40 py-4 px-6 lg:px-16">
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-brand-cream/95 backdrop-blur-md border-b border-stone-200/50 py-4 px-6 lg:px-16">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
       <!-- Brand Logo -->
       <a href="#" class="font-luxury text-3xl font-light tracking-widest text-brand-dark">
@@ -100,6 +104,7 @@
       <nav id="strategy-nav" class="hidden flex items-center gap-6 text-xs tracking-widest font-light text-brand-dark/80">
         <a href="#vision" class="hover:text-brand-gold transition-colors">VISION</a>
         <a href="#roadmap" class="hover:text-brand-gold transition-colors">ROADMAP</a>
+        <a href="#competitors" class="hover:text-brand-gold transition-colors">COMPETITORS</a>
         <a href="#financials" class="hover:text-brand-gold transition-colors">FINANCIALS</a>
         <a href="#kpis" class="hover:text-brand-gold transition-colors">KPIS</a>
       </nav>
@@ -445,7 +450,7 @@
       </div>
     </section>
 
-    <!-- SECTION 2.5: COMPETITOR LANDSCAPE & DIFFERENTIATION -->
+    <!-- SECTION 2.5: COMPETITOR LANDSCAPE & DIFFERENTIATION (With Elegant Images) -->
     <section id="competitors" class="py-24 px-6 lg:px-16 bg-brand-cream/30 scroll-mt-24">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16 space-y-3">
@@ -456,67 +461,85 @@
           </p>
         </div>
 
-        <!-- Competitor Cards Grid -->
+        <!-- Competitor Cards Grid (Enhanced with Actual Brand Visuals) -->
         <div class="grid md:grid-cols-3 gap-8 mb-16">
           <!-- Competitor 1: Jose -->
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-luxury text-2xl text-stone-400 font-medium">Jose</span>
-                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Deep Nourishing Focus</span>
+          <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-brand-sand flex flex-col justify-between transition-all">
+            <div>
+              <div class="h-48 w-full overflow-hidden relative bg-stone-100">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=500" alt="Jose Brand - Deep Nourishing Oil" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <span class="absolute bottom-4 left-4 font-luxury text-2xl text-white font-medium">Jose</span>
               </div>
-              <p class="text-stone-600 text-sm font-light leading-relaxed">
-                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
-                เน้นบำรุงผิวล้ำลึกด้วยสารสกัดธรรมชาติต่างประเทศ คืนความชุ่มชื้นแก่ผิวแห้งกร้านได้ดีมาก
-              </p>
-              <p class="text-stone-500 text-xs font-light italic">
-                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
-                เนื้อออยล์ค่อนข้างหนักและซึมช้าสำหรับอากาศเมืองไทย และที่สำคัญคือ <span class="text-red-500 font-medium">"ไม่มีสารป้องกันแสงแดด (SPF)"</span>
-              </p>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Deep Nourishing Focus</span>
+                </div>
+                <p class="text-stone-600 text-sm font-light leading-relaxed">
+                  <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                  เน้นบำรุงผิวอย่างล้ำลึกด้วยสารสกัดธรรมชาตินำเข้าจากต่างประเทศ คืนความชุ่มชื้นแก่ผิวแห้งกร้านได้ดีมาก
+                </p>
+                <p class="text-stone-500 text-xs font-light italic bg-red-50/50 p-3 rounded-xl border border-red-100">
+                  <strong class="text-stone-700 block not-italic font-medium mb-1"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i>ข้อจำกัดในมุมมองลูกค้า:</strong>
+                  เนื้อออยล์ค่อนข้างหนักและซึมช้าสำหรับสภาพอากาศเมืองไทย และที่สำคัญคือ <span class="text-red-500 font-medium">"ไม่มีสารป้องกันแสงแดด (SPF)"</span>
+                </p>
+              </div>
             </div>
-            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+            <div class="p-6 pt-0 border-t border-stone-100/50 text-stone-400 text-xs">
               ตลาดอ้างอิง: สกินแคร์บำรุงผิวกลางคืน
             </div>
           </div>
 
           <!-- Competitor 2: Journal -->
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-luxury text-2xl text-stone-400 font-medium">Journal</span>
-                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Premium Scent Focus</span>
+          <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-brand-sand flex flex-col justify-between transition-all">
+            <div>
+              <div class="h-48 w-full overflow-hidden relative bg-stone-100">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=500" alt="Journal Brand - Premium Scent" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <span class="absolute bottom-4 left-4 font-luxury text-2xl text-white font-medium">Journal</span>
               </div>
-              <p class="text-stone-600 text-sm font-light leading-relaxed">
-                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
-                โดดเด่นอย่างมากเรื่องกลิ่นหอมเอกลักษณ์สไตล์น้ำหอมไทยและดอกไม้พรีเมียม วางภาพลักษณ์หรูหรา
-              </p>
-              <p class="text-stone-500 text-xs font-light italic">
-                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
-                ราคาสูงระดับ Ultra-Luxury (1,500 - 2,500 บาท) และเน้นฟังก์ชันน้ำหอมเป็นหลัก <span class="text-red-500 font-medium">"ไม่มีคุณสมบัติกันแดดและปกป้องผิว"</span>
-              </p>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Premium Scent Focus</span>
+                </div>
+                <p class="text-stone-600 text-sm font-light leading-relaxed">
+                  <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                  โดดเด่นอย่างมากเรื่องกลิ่นหอมเอกลักษณ์สไตล์น้ำหอมไทยและดอกไม้พรีเมียม วางภาพลักษณ์หรูหราแบบดั้งเดิม
+                </p>
+                <p class="text-stone-500 text-xs font-light italic bg-red-50/50 p-3 rounded-xl border border-red-100">
+                  <strong class="text-stone-700 block not-italic font-medium mb-1"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i>ข้อจำกัดในมุมมองลูกค้า:</strong>
+                  ราคาสูงระดับ Ultra-Luxury (1,500 - 2,500 บาท) และเน้นฟังก์ชันน้ำหอมเป็นหลัก <span class="text-red-500 font-medium">"ไม่มีคุณสมบัติกันแดดและปกป้องผิว"</span>
+                </p>
+              </div>
             </div>
-            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+            <div class="p-6 pt-0 border-t border-stone-100/50 text-stone-400 text-xs">
               ตลาดอ้างอิง: น้ำหอมบำรุงผิวกายระดับสูง
             </div>
           </div>
 
           <!-- Competitor 3: Ness -->
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-luxury text-2xl text-stone-400 font-medium">Ness</span>
-                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Mass & Quick Dry Focus</span>
+          <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-brand-sand flex flex-col justify-between transition-all">
+            <div>
+              <div class="h-48 w-full overflow-hidden relative bg-stone-100">
+                <img src="https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=500" alt="Ness Brand - Mass & Quick Dry" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <span class="absolute bottom-4 left-4 font-luxury text-2xl text-white font-medium">Ness</span>
               </div>
-              <p class="text-stone-600 text-sm font-light leading-relaxed">
-                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
-                เนื้อบางเบาพิเศษ ซึมซาบเข้าสู่ผิวได้อย่างรวดเร็ว ราคาประหยัดและเข้าถึงง่ายสำหรับคนทั่วไป
-              </p>
-              <p class="text-stone-500 text-xs font-light italic">
-                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
-                ภาพลักษณ์เน้นตลาด Mass ขาดมิติแห่งความพรีเมียมและอารมณ์ร่วมสปาหรู และ <span class="text-red-500 font-medium">"ไม่ตอบโจทย์เรื่องการท้าแดดหรือชิมเมอร์สะท้อนแสง"</span>
-              </p>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Mass & Quick Dry Focus</span>
+                </div>
+                <p class="text-stone-600 text-sm font-light leading-relaxed">
+                  <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                  เนื้อบางเบาพิเศษ ซึมซาบเข้าสู่ผิวได้อย่างรวดเร็ว ราคาประหยัดและเข้าถึงง่ายสำหรับคนทั่วไป
+                </p>
+                <p class="text-stone-500 text-xs font-light italic bg-red-50/50 p-3 rounded-xl border border-red-100">
+                  <strong class="text-stone-700 block not-italic font-medium mb-1"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-1"></i>ข้อจำกัดในมุมมองลูกค้า:</strong>
+                  ภาพลักษณ์เน้นตลาดทั่วไป (Mass) ขาดมิติแห่งความพรีเมียมและอารมณ์ร่วมสปาหรู และ <span class="text-red-500 font-medium">"ไม่ตอบโจทย์เรื่องการท้าแดดหรือชิมเมอร์สะท้อนแสง"</span>
+                </p>
+              </div>
             </div>
-            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+            <div class="p-6 pt-0 border-t border-stone-100/50 text-stone-400 text-xs">
               ตลาดอ้างอิง: มอยส์เจอไรเซอร์บำรุงผิวทั่วไป
             </div>
           </div>
