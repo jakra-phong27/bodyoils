@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L’ÉCLAT | Luxury UV Skin Ritual & Brand Strategy</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js for Interactive Financial Margin visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts: Cormorant Garamond & Kanit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Kanit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#D4AF37',
+              lightGold: '#F3E5AB',
+              dark: '#1C1917',
+              sand: '#F5EFEB',
+              cream: '#FAF6F0',
+              bronze: '#A3704C'
+            }
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Kanit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #FAF6F0;
+      color: #1C1917;
+      overflow-x: hidden;
+    }
+    .font-luxury {
+      font-family: 'Cormorant Garamond', 'Kanit', serif;
+    }
+    .hero-bg {
+      background: linear-gradient(rgba(28, 25, 23, 0.4), rgba(28, 25, 23, 0.5)), url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1920&auto=format&fit=crop') center/cover;
+    }
+    .gallery-img {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+    .tab-btn.active {
+      border-color: #D4AF37;
+      color: #D4AF37;
+      background-color: rgba(212, 175, 55, 0.05);
+    }
+    .timeline-dot {
+      transition: all 0.3s ease;
+    }
+    .tab-btn.active .timeline-dot {
+      background-color: #D4AF37;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+    .kpi-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-gold selection:text-white">
+
+  <!-- NAVIGATION BAR (Unified with Dual Mode Toggle) -->
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-brand-cream/90 backdrop-blur-md border-b border-stone-200/40 py-4 px-6 lg:px-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Brand Logo -->
+      <a href="#" class="font-luxury text-3xl font-light tracking-widest text-brand-dark">
+        L’ÉCLAT
+      </a>
+      
+      <!-- Nav Menu (Consumer View / Switches dynamically) -->
+      <nav id="consumer-nav" class="flex items-center gap-6 text-xs tracking-widest font-light text-brand-dark/80">
+        <a href="#philosophy" class="hover:text-brand-bronze transition-colors">PHILOSOPHY</a>
+        <a href="#product" class="hover:text-brand-bronze transition-colors">THE OIL</a>
+        <a href="#ingredients" class="hover:text-brand-bronze transition-colors">INGREDIENTS</a>
+        <a href="#ritual" class="hover:text-brand-bronze transition-colors">THE RITUAL</a>
+      </nav>
+
+      <!-- Nav Menu (Strategy View / Hidden by default) -->
+      <nav id="strategy-nav" class="hidden flex items-center gap-6 text-xs tracking-widest font-light text-brand-dark/80">
+        <a href="#vision" class="hover:text-brand-gold transition-colors">VISION</a>
+        <a href="#roadmap" class="hover:text-brand-gold transition-colors">ROADMAP</a>
+        <a href="#financials" class="hover:text-brand-gold transition-colors">FINANCIALS</a>
+        <a href="#kpis" class="hover:text-brand-gold transition-colors">KPIS</a>
+      </nav>
+
+      <!-- Mode Selector Switch -->
+      <div class="flex items-center gap-2 bg-stone-200/50 p-1 rounded-full border border-stone-300/30">
+        <button id="btn-consumer-mode" onclick="setViewMode('consumer')" class="text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 bg-brand-dark text-white shadow-md">
+          Home
+        </button>
+        <button id="btn-strategy-mode" onclick="setViewMode('strategy')" class="text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-stone-600 hover:text-brand-dark">
+          Strategy
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- CONSUMER CUSTOMER EXPERIENCE PAGE -->
+  <!-- ========================================== -->
+  <div id="consumer-view" class="transition-opacity duration-500">
+    
+    <!-- HERO SECTION -->
+    <section class="hero-bg min-h-screen flex items-center justify-center text-center px-4 pt-20">
+      <div class="max-w-3xl text-white space-y-6">
+        <span class="text-xs lg:text-sm uppercase tracking-[0.3em] text-brand-lightGold font-medium">SUNKISSED GLOW. SHIELDED SKIN.</span>
+        <h1 class="font-luxury text-5xl lg:text-8xl font-light tracking-wide leading-tight">
+          The Ultimate <br>
+          <span class="italic font-normal text-brand-lightGold">UV Body Oil</span> Ritual
+        </h1>
+        <p class="text-sm lg:text-lg text-stone-200 font-light max-w-xl mx-auto leading-relaxed">
+          สัมผัสความหรูหราแห่งผิวฉ่ำโกลว์สะท้อนแสงแดดธรรมชาติ พร้อมการปกป้องระดับพรีเมียม ปฏิวัติมิติใหม่แห่งการบำรุงและกันแดดในขวดเดียว
+        </p>
+        <div class="pt-4">
+          <a href="#product" class="inline-block bg-brand-cream text-brand-dark hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 text-xs tracking-widest px-8 py-4 rounded-full font-medium shadow-lg">
+            EXPLORE L’ÉCLAT <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND PHILOSOPHY -->
+    <section id="philosophy" class="py-24 px-6 lg:px-16 bg-brand-cream">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-bronze font-semibold">OUR PHILOSOPHY</span>
+          <h2 class="font-luxury text-4xl lg:text-5xl font-light text-brand-dark leading-snug">
+            ความหรูหราที่เงียบง่าย <br><span class="italic font-normal">และใส่ใจในทุกสัมผัส</span>
+          </h2>
+          <p class="text-stone-600 text-sm lg:text-base leading-relaxed font-light">
+            เพราะผิวของคุณคู่ควรกับสิ่งที่ดีที่สุด เราจึงรังสรรค์บอดี้ออยล์สูตรพิเศษที่ผสานสารป้องกันแสงแดด SPF 30 PA+++ เนื้อสัมผัสบางเบา ซึมซาบเข้าสู่ผิวทันทีโดยไม่เหนียวเหนอะหนะ ทิ้งไว้เพียงความเปล่งประกายโกลว์ใสและกลิ่นหอมละมุนสไตล์ Quiet Luxury
+          </p>
+          <p class="text-stone-600 text-sm lg:text-base leading-relaxed font-light">
+            ไม่ใช่แค่บำรุง แต่คือ "พิธีกรรมบำรุงผิว" (Skin Ritual) ที่ทำให้คุณรักผิวตัวเองในทุกๆ วัน
+          </p>
+        </div>
+        <div class="relative">
+          <div class="absolute -inset-2 border border-brand-bronze/20 rounded-2xl transform translate-x-4 translate-y-4"></div>
+          <img src="https://images.unsplash.com/photo-1596464406161-0e48753239a5?q=80&w=800" alt="Sun-kissed Skin" class="rounded-2xl shadow-lg relative z-10 w-full h-[450px] object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x1000/F5EFEB/8C6239?text=Sun-kissed+Skin'">
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PRODUCT SHOWCASE -->
+    <section id="product" class="py-24 px-6 lg:px-16 bg-white border-t border-brand-sand">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 space-y-3">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-bronze font-semibold">THE SIGNATURE CREATION</span>
+          <h2 class="font-luxury text-4xl lg:text-5xl font-light text-brand-dark">L’ÉCLAT Huile De Soleil</h2>
+          <p class="text-stone-500 font-light max-w-md mx-auto text-sm">บอดี้ออยล์กันแดดระดับพรีเมียมเพื่อผิวฉ่ำโกลว์สะดุดตา</p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <!-- Left Features -->
+          <div class="lg:col-span-4 space-y-8 order-2 lg:order-1">
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-sun text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Broad-Spectrum Protection</h4>
+                <p class="text-stone-500 text-sm font-light">ปกป้องผิวจากรังสี UVA และ UVB ด้วยค่า SPF 30 PA+++ อย่างมีประสิทธิภาพ</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-droplet text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Deep Hydration & Nourishing</h4>
+                <p class="text-stone-500 text-sm font-light">ฟื้นบำรุงผิวที่แห้งกร้านด้วยสารสกัดออยล์ธรรมชาติเข้มข้น คืนความเนียนนุ่มทันที</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Golden Hour Glow</h4>
+                <p class="text-stone-500 text-sm font-light">เคลือบผิวให้เปล่งประกายโกลว์ สวยสง่าดุจแสงอาทิตย์ยามบ่ายแก่ๆ (Golden Hour)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Image Showcase -->
+          <div class="lg:col-span-4 flex justify-center order-1 lg:order-2">
+            <div class="relative bg-brand-cream rounded-full p-8 w-[320px] h-[320px] lg:w-[400px] lg:h-[400px] flex items-center justify-center shadow-inner">
+              <div class="absolute inset-4 rounded-full border border-dashed border-brand-bronze/30 animate-spin-slow"></div>
+              <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=500" alt="L’ÉCLAT Bottle" class="max-h-[300px] lg:max-h-[360px] object-contain rounded-2xl drop-shadow-2xl z-10" onerror="this.onerror=null; this.src='https://placehold.co/400x500/FAF6F0/8C6239?text=L’ÉCLAT+Luxury+Oil'">
+            </div>
+          </div>
+
+          <!-- Right Specifications -->
+          <div class="lg:col-span-4 space-y-8 order-3">
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-wind text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Featherlight Touch</h4>
+                <p class="text-stone-500 text-sm font-light">บางเบาราวกับขนนก ไม่เหนียวเหนอะหนะ สบายผิวแม้ในสภาพอากาศร้อนชื้น</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-leaf text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Clean Beauty & Organic Oils</h4>
+                <p class="text-stone-500 text-sm font-light">คัดสรรวัตถุดิบออร์แกนิก ปราศจากสารพาราเบน ซิลิโคน และสารเคมีอันตราย</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-brand-cream text-brand-bronze w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fa-solid fa-spa text-lg"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-brand-dark mb-1">Exquisite Signature Scent</h4>
+                <p class="text-stone-500 text-sm font-light">กลิ่นหอมหรูหราจากวู้ดดี้และซิตรัสอ่อนๆ ที่จะติดตรึงอยู่บนผิวของคุณตลอดวัน</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INGREDIENTS SECTION -->
+    <section id="ingredients" class="py-24 px-6 lg:px-16 bg-brand-cream">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 space-y-3">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-bronze font-semibold">THE INGREDIENTS</span>
+          <h2 class="font-luxury text-4xl lg:text-5xl font-light text-brand-dark">สารสกัดธรรมชาติอันทรงคุณค่า</h2>
+          <p class="text-stone-500 font-light max-w-lg mx-auto text-sm">คัดสรรเฉพาะน้ำมันสกัดเกรดพรีเมียม เพื่อมอบการบำรุงลึกถึงชั้นผิว</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="h-64 bg-stone-100 relative">
+              <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=500" alt="Squalane Oil" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6 space-y-2">
+              <span class="text-xs text-brand-bronze font-semibold uppercase tracking-wider">Premium Squalane</span>
+              <h4 class="font-medium text-lg text-brand-dark">สควาเลนบริสุทธิ์</h4>
+              <p class="text-stone-500 text-sm font-light leading-relaxed">ช่วยกักเก็บความชุ่มชื้นตามธรรมชาติของผิวอย่างยาวนาน เสริมเกราะป้องกันชั้นผิวให้แข็งแรงและดูเปล่งปลั่งอย่างสุขภาพดี</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="h-64 bg-stone-100 relative">
+              <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500" alt="Jojoba & Argan" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6 space-y-2">
+              <span class="text-xs text-brand-bronze font-semibold uppercase tracking-wider">Organic Jojoba & Argan Oil</span>
+              <h4 class="font-medium text-lg text-brand-dark">โจโจ้บา และ อาร์แกนออยล์</h4>
+              <p class="text-stone-500 text-sm font-light leading-relaxed">อุดมไปด้วยวิตามิน E และกรดไขมันจำเป็น บำรุงล้ำลึกถึงเซลล์ผิว ป้องกันริ้วรอยก่อนวัยที่เกิดจากการทำร้ายของแสงแดด</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="h-64 bg-stone-100 relative">
+              <img src="https://images.unsplash.com/photo-1547881335-e10ee2164501?q=80&w=500" alt="Golden Shimmer" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6 space-y-2">
+              <span class="text-xs text-brand-bronze font-semibold uppercase tracking-wider">Refined Shimmering Elements</span>
+              <h4 class="font-medium text-lg text-brand-dark">สารสกัดประกายทองคำละเอียด</h4>
+              <p class="text-stone-500 text-sm font-light leading-relaxed">อนุภาคชิมเมอร์ขนาดเล็กระดับไมโคร ช่วยสะท้อนแสงแดดเพื่อสร้างเอฟเฟกต์ผิวฉ่ำโกลว์ระยิบระยับอย่างเป็นธรรมชาติไร้ที่ติ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE RITUAL -->
+    <section id="ritual" class="py-24 px-6 lg:px-16 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 space-y-3">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-bronze font-semibold">THE APPLICATION</span>
+          <h2 class="font-luxury text-4xl lg:text-5xl font-light text-brand-dark">The Glow Ritual</h2>
+          <p class="text-stone-500 font-light max-w-lg mx-auto text-sm">3 ขั้นตอนง่ายๆ เพื่อผิวฉ่ำโกลว์สวยงามสมบูรณ์แบบในทุกเช้า</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-12 text-center">
+          <div class="space-y-4">
+            <div class="w-16 h-16 bg-brand-cream text-brand-bronze rounded-full flex items-center justify-center font-luxury text-2xl font-light mx-auto shadow-sm">01</div>
+            <h4 class="font-medium text-lg text-brand-dark">Shake & Spray</h4>
+            <p class="text-stone-500 text-sm font-light leading-relaxed max-w-xs mx-auto">เขย่าขวดเล็กน้อยเพื่อให้เนื้อออยล์และอณูชิมเมอร์เข้ากันดี สเปรย์ลงบนผิวกายหลังอาบน้ำหรือก่อนออกแดด 15 นาที</p>
+          </div>
+          <div class="space-y-4">
+            <div class="w-16 h-16 bg-brand-cream text-brand-bronze rounded-full flex items-center justify-center font-luxury text-2xl font-light mx-auto shadow-sm">02</div>
+            <h4 class="font-medium text-lg text-brand-dark">Massage Gently</h4>
+            <p class="text-stone-500 text-sm font-light leading-relaxed max-w-xs mx-auto">ลูบไล้และนวดเนื้อออยล์เบาๆ ทั่วผิวกาย เพื่อกระตุ้นการซึมซาบและความเปล่งปลั่ง เน้นบริเวณเนินอก ไหล่ และเรียวขา</p>
+          </div>
+          <div class="space-y-4">
+            <div class="w-16 h-16 bg-brand-cream text-brand-bronze rounded-full flex items-center justify-center font-luxury text-2xl font-light mx-auto shadow-sm">03</div>
+            <h4 class="font-medium text-lg text-brand-dark">Glow under the Sun</h4>
+            <p class="text-stone-500 text-sm font-light leading-relaxed max-w-xs mx-auto">พร้อมออกไปท้าทายแสงแดด อวดผิวเปล่งประกายฉ่ำสะท้อนธรรมชาติ โดยได้รับการปกป้องจากรังสี UV อย่างมั่นใจตลอดวัน</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRE-ORDER CTA -->
+    <section id="preorder" class="py-24 px-6 lg:px-16 bg-brand-dark text-brand-cream relative overflow-hidden">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-bronze/10 rounded-full blur-3xl"></div>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+        <span class="text-xs uppercase tracking-[0.3em] text-brand-gold font-semibold">EXCLUSIVE PRE-ORDER</span>
+        <h2 class="font-luxury text-4xl lg:text-6xl font-light tracking-wide leading-tight">ร่วมเป็นคนกลุ่มแรก <br>ที่ครอบครองความเปล่งประกายครั้งใหม่</h2>
+        <p class="text-stone-300 font-light text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
+          สั่งซื้อล่วงหน้าเพื่อรับข้อเสนอพิเศษ L’ÉCLAT Huile De Soleil บอดี้ออยล์กันแดดพรีเมียม ขนาด 100ml ในราคาเปิดตัวสุดพิเศษ 890 บาท (จากราคาปกติ 1,290 บาท) พร้อมจัดส่งฟรีทั่วประเทศ
+        </p>
+        
+        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 pt-4" onsubmit="event.preventDefault(); showRegistrationNotification();">
+          <input type="email" id="preorder-email" placeholder="กรอกอีเมลของคุณเพื่อลงทะเบียนรับสิทธิ์" required class="flex-grow bg-white/10 border border-stone-700 rounded-full px-6 py-3 text-sm text-white placeholder-stone-400 focus:outline-none focus:border-brand-gold" />
+          <button type="submit" class="bg-brand-gold text-brand-dark hover:bg-white hover:text-brand-dark transition-all duration-300 font-medium text-xs tracking-widest px-8 py-3 rounded-full">
+            PRE-ORDER NOW
+          </button>
+        </form>
+        <p class="text-xs text-stone-400 italic">จำนวนจำกัดเพียง 200 ขวดแรกสำหรับล๊อตพิเศษเพื่อแฟนแบรนด์ L’ÉCLAT เท่านั้น</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- BRAND STRATEGY & INVESTOR PLAN DASHBOARD -->
+  <!-- ========================================== -->
+  <div id="strategy-view" class="hidden transition-opacity duration-500 pt-24">
+    
+    <!-- SUB-HEADER STRATEGY BRANDING -->
+    <section class="pt-16 pb-12 px-6 text-center animate-fade-in-up">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-brand-gold mb-3 text-2xl">✦</div>
+        <h2 class="font-luxury text-4xl md:text-6xl font-light mb-4 leading-tight">
+          Brand Strategy &<br>
+          <span class="italic text-brand-gold">Marketing Plan</span>
+        </h2>
+        <p class="text-brand-bronze font-light text-sm tracking-widest uppercase mb-6">Strategic Execution Dashboard 2026 - 2027</p>
+        <div class="h-[1px] w-12 bg-brand-gold mx-auto"></div>
+        <p class="text-brand-text/70 font-light max-w-xl mx-auto mt-6 text-sm leading-relaxed">
+          แดชบอร์ดข้อมูลแผนงานเชิงกลยุทธ์และการตลาดสำหรับแบรนด์ L’ÉCLAT มุ่งเน้นการเจาะส่วนแบ่งตลาดระดับ Ultra-Premium บอดี้ออยล์ปกป้องผิวจากแสงแดด SPF 30 PA+++ ร่วมผลิตและให้คำปรึกษาโดยสถาบันวิจัยชั้นนำ
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 1: VISION & POSITIONING -->
+    <section id="vision" class="py-12 px-6 lg:px-16 max-w-7xl mx-auto scroll-mt-24">
+      <div class="text-center mb-12">
+        <h3 class="font-luxury text-3xl text-brand-text mb-4">1. Brand Vision & Positioning</h3>
+        <p class="text-brand-text/70 font-light max-w-2xl mx-auto text-sm">
+          การวางรากฐานและกำหนดคุณลักษณะเฉพาะของผลิตภัณฑ์ L’ÉCLAT ในฐานะแบรนด์สกินแคร์หรูที่ใส่ใจในคุณประโยชน์จริงและอารมณ์ความรู้สึกเพื่อสะท้อนความประณีต
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand transition-all hover:shadow-md hover:border-brand-gold/30">
+          <div class="text-3xl text-brand-gold mb-4">⚱️</div>
+          <h4 class="font-luxury text-2xl mb-3 text-brand-dark font-medium">Brand Essence</h4>
+          <div class="text-sm font-medium text-brand-bronze mb-2">"The Sun-Kissed Ritual"</div>
+          <p class="text-stone-500 font-light text-xs leading-relaxed">
+            เปลี่ยนการทาครีมกันแดดที่น่าเบื่อหน่าย ให้กลายเป็น "พิธีกรรมบำรุงผิวอันเงียบง่ายและผ่อนคลาย" ด้วยกลิ่นหอมและการดูดซึมที่ประณีตในแต่ละวัน
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand transition-all hover:shadow-md hover:border-brand-gold/30">
+          <div class="text-3xl text-brand-gold mb-4">♔</div>
+          <h4 class="font-luxury text-2xl mb-3 text-brand-dark font-medium">Market Position</h4>
+          <div class="text-sm font-medium text-brand-bronze mb-2">Ultra-Premium Category</div>
+          <p class="text-stone-500 font-light text-xs leading-relaxed">
+            วางรากฐานสินค้าสกินแคร์กลุ่มบำรุงและกันแดดพรีเมียม (SPF 30 PA+++) มุ่งพัฒนาอารมณ์ร่วม (Emotional Luxury) ควบคู่กับผลลัพธ์ประสิทธิภาพเด่นชัด
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand transition-all hover:shadow-md hover:border-brand-gold/30">
+          <div class="text-3xl text-brand-gold mb-4">✧</div>
+          <h4 class="font-luxury text-2xl mb-3 text-brand-dark font-medium">Target Audience</h4>
+          <div class="text-sm font-medium text-brand-bronze mb-2">HNW Millennials & Gen Z</div>
+          <p class="text-stone-500 font-light text-xs leading-relaxed">
+            กลุ่มคนรุ่นใหม่ที่มีรายได้มั่นคงและชื่นชอบในการดูแลตนเอง รักกิจกรรมกลางแจ้ง ไลฟ์สไตล์การท่องเที่ยวพักผ่อนริมหาด และกลุ่ม Wellness-Luxury
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ROADMAP TIMELINE -->
+    <section id="roadmap" class="py-24 px-6 lg:px-16 bg-white border-y border-brand-sand scroll-mt-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <h3 class="font-luxury text-3xl text-brand-text mb-4">2. Marketing Roadmap</h3>
+          <p class="text-brand-text/70 font-light max-w-2xl mx-auto text-sm">
+            แผนการดำเนินงานตลอด 12 เดือนแรก แบ่งกลยุทธ์สำคัญออกเป็น 3 ระยะหลัก คลิกที่ระยะด้านซ้ายเพื่อดูรายละเอียดและเป้าหมายกิจกรรมหลัก
+          </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
+          <!-- Timeline Navigation Sidebar -->
+          <div class="w-full lg:w-1/3 flex flex-col gap-4">
+            <button onclick="updateRoadmap(0)" id="tab-0" class="tab-btn active text-left p-6 rounded-xl border border-brand-sand bg-brand-cream transition-all flex items-center gap-4">
+              <div class="timeline-dot w-3 h-3 rounded-full bg-brand-sand"></div>
+              <div>
+                <div class="font-luxury text-xl font-medium text-brand-dark">Phase 1: Foundation</div>
+                <div class="text-xs font-light text-stone-500">Months 1-3</div>
+              </div>
+            </button>
+            <button onclick="updateRoadmap(1)" id="tab-1" class="tab-btn text-left p-6 rounded-xl border border-brand-sand bg-brand-cream transition-all flex items-center gap-4">
+              <div class="timeline-dot w-3 h-3 rounded-full bg-brand-sand"></div>
+              <div>
+                <div class="font-luxury text-xl font-medium text-brand-dark">Phase 2: Engagement</div>
+                <div class="text-xs font-light text-stone-500">Months 4-6</div>
+              </div>
+            </button>
+            <button onclick="updateRoadmap(2)" id="tab-2" class="tab-btn text-left p-6 rounded-xl border border-brand-sand bg-brand-cream transition-all flex items-center gap-4">
+              <div class="timeline-dot w-3 h-3 rounded-full bg-brand-sand"></div>
+              <div>
+                <div class="font-luxury text-xl font-medium text-brand-dark">Phase 3: Expansion</div>
+                <div class="text-xs font-light text-stone-500">Months 7-12</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Dynamic Roadmap Content Card -->
+          <div class="w-full lg:w-2/3 bg-brand-cream border border-brand-sand rounded-2xl p-8 min-h-[300px] flex flex-col justify-center transition-opacity duration-300" id="roadmap-content">
+            <!-- Rendered Dynamically via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2.5: COMPETITOR LANDSCAPE & DIFFERENTIATION -->
+    <section id="competitors" class="py-24 px-6 lg:px-16 bg-brand-cream/30 scroll-mt-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 space-y-3">
+          <span class="text-xs uppercase tracking-[0.2em] text-brand-bronze font-semibold">COMPETITIVE ANALYSIS</span>
+          <h3 class="font-luxury text-3xl lg:text-4xl text-brand-text">วิเคราะห์คู่แข่ง & จุดต่างที่เหนือกว่า</h3>
+          <p class="text-stone-500 font-light max-w-2xl mx-auto text-sm">
+            ความแตกต่างและโอกาสในตลาดที่ L’ÉCLAT ค้นพบ ผ่านการวิเคราะห์จุดขายของแบรนด์หลักและกำหนดจุดยืนพรีเมียมในแบบของตัวเอง
+          </p>
+        </div>
+
+        <!-- Competitor Cards Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <!-- Competitor 1: Jose -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-luxury text-2xl text-stone-400 font-medium">Jose</span>
+                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Deep Nourishing Focus</span>
+              </div>
+              <p class="text-stone-600 text-sm font-light leading-relaxed">
+                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                เน้นบำรุงผิวล้ำลึกด้วยสารสกัดธรรมชาติต่างประเทศ คืนความชุ่มชื้นแก่ผิวแห้งกร้านได้ดีมาก
+              </p>
+              <p class="text-stone-500 text-xs font-light italic">
+                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
+                เนื้อออยล์ค่อนข้างหนักและซึมช้าสำหรับอากาศเมืองไทย และที่สำคัญคือ <span class="text-red-500 font-medium">"ไม่มีสารป้องกันแสงแดด (SPF)"</span>
+              </p>
+            </div>
+            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+              ตลาดอ้างอิง: สกินแคร์บำรุงผิวกลางคืน
+            </div>
+          </div>
+
+          <!-- Competitor 2: Journal -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-luxury text-2xl text-stone-400 font-medium">Journal</span>
+                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Premium Scent Focus</span>
+              </div>
+              <p class="text-stone-600 text-sm font-light leading-relaxed">
+                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                โดดเด่นอย่างมากเรื่องกลิ่นหอมเอกลักษณ์สไตล์น้ำหอมไทยและดอกไม้พรีเมียม วางภาพลักษณ์หรูหรา
+              </p>
+              <p class="text-stone-500 text-xs font-light italic">
+                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
+                ราคาสูงระดับ Ultra-Luxury (1,500 - 2,500 บาท) และเน้นฟังก์ชันน้ำหอมเป็นหลัก <span class="text-red-500 font-medium">"ไม่มีคุณสมบัติกันแดดและปกป้องผิว"</span>
+              </p>
+            </div>
+            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+              ตลาดอ้างอิง: น้ำหอมบำรุงผิวกายระดับสูง
+            </div>
+          </div>
+
+          <!-- Competitor 3: Ness -->
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-sand flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-luxury text-2xl text-stone-400 font-medium">Ness</span>
+                <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Mass & Quick Dry Focus</span>
+              </div>
+              <p class="text-stone-600 text-sm font-light leading-relaxed">
+                <strong class="text-brand-dark block mb-1">จุดขายหลัก:</strong>
+                เนื้อบางเบาพิเศษ ซึมซาบเข้าสู่ผิวได้อย่างรวดเร็ว ราคาประหยัดและเข้าถึงง่ายสำหรับคนทั่วไป
+              </p>
+              <p class="text-stone-500 text-xs font-light italic">
+                <strong class="text-stone-700 block not-italic font-medium mb-1">ข้อจำกัดในมุมมองลูกค้า:</strong>
+                ภาพลักษณ์เน้นตลาด Mass ขาดมิติแห่งความพรีเมียมและอารมณ์ร่วมสปาหรู และ <span class="text-red-500 font-medium">"ไม่ตอบโจทย์เรื่องการท้าแดดหรือชิมเมอร์สะท้อนแสง"</span>
+              </p>
+            </div>
+            <div class="pt-6 border-t border-stone-100 mt-6 text-stone-400 text-xs">
+              ตลาดอ้างอิง: มอยส์เจอไรเซอร์บำรุงผิวทั่วไป
+            </div>
+          </div>
+        </div>
+
+        <!-- Our Ultimate Differentiation (L'ÉCLAT USP) -->
+        <div class="bg-brand-dark text-brand-cream rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-xl">
+          <div class="absolute -top-32 -right-32 w-80 h-80 bg-brand-gold/10 rounded-full blur-3xl"></div>
+          
+          <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-6">
+              <span class="text-xs uppercase tracking-[0.3em] text-brand-gold font-semibold">OUR UNMATCHED USP</span>
+              <h4 class="font-luxury text-3xl lg:text-4xl font-light leading-tight">
+                จุดแตกต่างและอาวุธลับของ <br>
+                <span class="italic font-normal text-brand-gold">L’ÉCLAT Huile De Soleil</span>
+              </h4>
+              <p class="text-stone-300 font-light text-sm leading-relaxed">
+                เราไม่ได้สร้างแค่บอดี้ออยล์บำรุงหรือน้ำหอมทาตัว แต่เรานำเสนอ <strong class="text-brand-gold">"The Ultimate 3-in-1 Skin Ritual"</strong> ที่ผสานการบำรุงระดับพรีเมียม ประกายโกลว์หรูสะกดทุกสายตา และที่สำคัญคือมี <strong class="text-white">SPF 30 PA+++ สารป้องกันแสงแดดจริงที่ได้รับการรับรองมาตรฐาน</strong> เป็นเจ้าแรกที่วางจุดยืนนี้อย่างชัดเจนในราคาเข้าถึงง่ายสำหรับลูกค้าพรีเมียม (Affordable Luxury: 790 - 890 บาท)
+              </p>
+              
+              <div class="grid sm:grid-cols-3 gap-4 pt-4 border-t border-stone-800">
+                <div class="space-y-1">
+                  <span class="text-brand-gold text-lg font-bold">✨ Luxury Glow</span>
+                  <p class="text-stone-400 text-xs font-light">ประกายชิมเมอร์ละเอียดระดับไมโคร ไม่ดูเลอะเทอะ</p>
+                </div>
+                <div class="space-y-1">
+                  <span class="text-brand-gold text-lg font-bold">☀️ Real UV Shield</span>
+                  <p class="text-stone-400 text-xs font-light">SPF 30 PA+++ ป้องกันแสงแดดได้จริงในชีวิตประจำวัน</p>
+                </div>
+                <div class="space-y-1">
+                  <span class="text-brand-gold text-lg font-bold">🌿 Featherlight</span>
+                  <p class="text-stone-400 text-xs font-light">สัมผัสเบาดุจขนนก ไม่เหนียว สบายตัวแม้อุณหภูมิสูง</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="lg:col-span-5 bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+              <h5 class="text-brand-gold font-medium text-sm tracking-wider uppercase">สรุปความเหนือกว่าในการทำตลาด</h5>
+              <ul class="space-y-3 text-xs text-stone-300 font-light">
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-brand-gold mt-0.5"></i>
+                  <span><strong>เหนือกว่าแบรนด์ Mass:</strong> ด้วยดีไซน์ขวดแก้วหนาพรีเมียม แบรนด์ดิ้งแบบ Quiet Luxury ดึงดูดผู้มีรายได้สูง</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-brand-gold mt-0.5"></i>
+                  <span><strong>เหนือกว่าแบรนด์น้ำหอมทาตัว:</strong> ตอบโจทย์ความต้องการปกป้องแดดสำหรับไลฟ์สไตล์เอ้าท์ดอร์ (หาด, สระว่ายน้ำ, พักผ่อน)</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i class="fa-solid fa-check text-brand-gold mt-0.5"></i>
+                  <span><strong>ปิดโอกาสการถูกปฏิเสธ:</strong> ด้วยระดับราคาที่คุ้มค่าเมื่อเทียบกับฟังก์ชันอเนกประสงค์ในขวดเดียว</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FINANCIAL POSITIONING -->
+    <section id="financials" class="py-24 px-6 lg:px-16 max-w-7xl mx-auto scroll-mt-24">
+      <div class="text-center mb-12">
+        <h3 class="font-luxury text-3xl text-brand-text mb-4">3. Financial Positioning Strategy</h3>
+        <p class="text-brand-text/70 font-light max-w-2xl mx-auto text-sm">
+          การวิเคราะห์ความแตกต่างของต้นทุนและกำไรขั้นต้นผ่านระบบจำลองข้อมูล บ่งชี้ความสามารถในการทำกำไรผ่านตลาดพรีเมียมสกินแคร์
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Visual Profit Margin Chart -->
+        <div class="bg-white p-6 rounded-2xl border border-brand-sand shadow-sm">
+          <h4 class="font-luxury text-2xl text-center mb-6 text-brand-dark">Margin Comparison Analysis</h4>
+          <div class="chart-container">
+            <canvas id="marginChart"></canvas>
+          </div>
+          <p class="text-center text-xs font-light text-stone-500 mt-4">L’ÉCLAT เน้นศักยภาพการควบคุมต้นทุนและสร้างอัตรากำไรต่อหน่วยที่สูงกว่าตลาดทั่วไป</p>
+        </div>
+
+        <!-- Strategy Details Table -->
+        <div class="overflow-hidden rounded-2xl border border-brand-sand shadow-sm bg-white">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-brand-cream/50">
+                <th class="p-4 font-luxury text-lg border-b border-brand-sand text-brand-text w-1/3">กลยุทธ์</th>
+                <th class="p-4 font-luxury text-lg border-b border-brand-sand text-stone-400 w-1/3">แบรนด์ทั่วไป (Mass)</th>
+                <th class="p-4 font-luxury text-lg border-b border-brand-sand text-brand-gold w-1/3">L’ÉCLAT (Premium)</th>
+              </tr>
+            </thead>
+            <tbody class="text-xs font-light text-stone-600">
+              <tr class="hover:bg-brand-cream/30 transition-colors">
+                <td class="p-4 border-b border-brand-sand/50 font-medium text-brand-text">ช่องทางการจัดจำหน่าย</td>
+                <td class="p-4 border-b border-brand-sand/50">ร้านสะดวกซื้อ / แพลตฟอร์มแมส</td>
+                <td class="p-4 border-b border-brand-sand/50 font-medium text-brand-bronze">Direct-to-Consumer (DTC) 100%</td>
+              </tr>
+              <tr class="hover:bg-brand-cream/30 transition-colors">
+                <td class="p-4 border-b border-brand-sand/50 font-medium text-brand-text">การสื่อสารภาพลักษณ์</td>
+                <td class="p-4 border-b border-brand-sand/50">เน้นการใช้งานทั่วไป (Functional)</td>
+                <td class="p-4 border-b border-brand-sand/50 font-medium text-brand-bronze">เน้นไลฟ์สไตล์ระดับสูง (Aspirational)</td>
+              </tr>
+              <tr class="hover:bg-brand-cream/30 transition-colors">
+                <td class="p-4 border-b border-brand-sand/50 font-medium text-brand-text">กำไรขั้นต้น (Margin)</td>
+                <td class="p-4 border-b border-brand-sand/50">30% - 40% ของราคาสินค้า</td>
+                <td class="p-4 border-b border-brand-sand/50 font-bold text-brand-gold text-sm">60% - 70% (Premium Advantage)</td>
+              </tr>
+              <tr class="hover:bg-brand-cream/30 transition-colors">
+                <td class="p-4 font-medium text-brand-text">โครงสร้างงบการตลาด</td>
+                <td class="p-4">งบโฆษณามหาชนแบบวงกว้าง</td>
+                <td class="p-4 font-medium text-brand-bronze">บิวตี้อินฟลูเอนเซอร์และคอนเทนต์คุณภาพ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: KEY PERFORMANCE INDICATORS -->
+    <section id="kpis" class="py-24 px-6 lg:px-16 bg-brand-cream/50 scroll-mt-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <h3 class="font-luxury text-3xl text-brand-text mb-4">4. Key Performance Indicators</h3>
+          <p class="text-brand-text/70 font-light max-w-2xl mx-auto text-sm">
+            ตัวเลขและดัชนีชี้วัดความสำเร็จหลัก (KPI) ในการขยายฐานผู้บริโภคและยอดคำสั่งซื้อซ้ำภายในระยะเวลาดำเนินงานที่กำหนด
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 text-center" id="kpi-container">
+          <!-- KPI 1 -->
+          <div class="kpi-card bg-white p-10 rounded-3xl border border-brand-sand transition-all duration-300">
+            <div class="text-4xl mb-4 text-brand-bronze"><i class="fa-solid fa-eye"></i></div>
+            <div class="font-luxury text-5xl text-brand-gold font-bold mb-2 flex justify-center items-end gap-1">
+              <span class="counter" data-target="500000">0</span><span class="text-2xl mb-1">+</span>
+            </div>
+            <h4 class="text-lg font-medium mb-2 text-brand-dark">Brand Awareness</h4>
+            <p class="text-stone-500 font-light text-xs">เป้าหมายจำนวนการเข้าถึงกลุ่มเป้าหมาย (Reach) บนแพลตฟอร์มภายใน 6 เดือน</p>
+          </div>
+
+          <!-- KPI 2 -->
+          <div class="kpi-card bg-white p-10 rounded-3xl border border-brand-sand transition-all duration-300">
+            <div class="text-4xl mb-4 text-brand-bronze"><i class="fa-solid fa-arrow-pointer"></i></div>
+            <div class="font-luxury text-5xl text-brand-gold font-bold mb-2 flex justify-center items-end gap-1">
+              <span class="counter" data-target="4">0</span><span class="text-2xl mb-1">%</span>
+            </div>
+            <h4 class="text-lg font-medium mb-2 text-brand-dark">Conversion Rate</h4>
+            <p class="text-stone-500 font-light text-xs">อัตราส่วนการสั่งจองซื้อสินค้าล่วงหน้าจากยอดผู้ใช้งานที่เข้าถึงเว็บไซต์ (เป้าหมาย 3-5%)</p>
+          </div>
+
+          <!-- KPI 3 -->
+          <div class="kpi-card bg-white p-10 rounded-3xl border border-brand-sand transition-all duration-300">
+            <div class="text-4xl mb-4 text-brand-bronze"><i class="fa-solid fa-arrows-spin"></i></div>
+            <div class="font-luxury text-5xl text-brand-gold font-bold mb-2 flex justify-center items-end gap-1">
+              <span class="counter" data-target="20">0</span><span class="text-2xl mb-1">%</span>
+            </div>
+            <h4 class="text-lg font-medium mb-2 text-brand-dark">Repurchase Rate</h4>
+            <p class="text-stone-500 font-light text-xs">อัตราส่วนการซื้อซ้ำสะสมของลูกค้าในระบบกลุ่ม Founding Members ในปีแรก</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CUSTOM REGISTRATION NOTIFICATION MODAL -->
+  <div id="custom-modal" class="hidden fixed inset-0 bg-brand-dark/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-brand-cream border border-brand-gold/30 p-8 rounded-3xl max-w-sm w-full text-center shadow-2xl relative animate-fade-in-up">
+      <div class="text-brand-gold text-4xl mb-4"><i class="fa-regular fa-bell"></i></div>
+      <h3 class="font-luxury text-2xl text-brand-dark font-medium mb-2">ขอบคุณสำหรับการลงทะเบียน</h3>
+      <p class="text-stone-600 text-xs leading-relaxed mb-6">ทีมงาน L’ÉCLAT ได้รับข้อมูล Pre-order ล่วงหน้าของคุณแล้ว เราจะส่งอีเมลยืนยันสิทธิ์ของคุณโดยเร็วที่สุด</p>
+      <button onclick="closeRegistrationNotification()" class="w-full bg-brand-dark text-white hover:bg-brand-gold transition-colors py-2.5 rounded-full text-xs tracking-wider font-medium">
+        ปิดหน้าต่าง
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-950 text-stone-400 py-16 px-6 lg:px-16 border-t border-stone-900">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="space-y-2 text-center md:text-left">
+        <h3 class="font-luxury text-2xl tracking-widest text-brand-cream">L’ÉCLAT</h3>
+        <p class="text-xs text-stone-500">Luxury UV Skin Ritual Brand | Crafted under premium standards</p>
+      </div>
+
+      <div class="flex gap-6 text-xl">
+        <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-line"></i></a>
+        <a href="mailto:contact@leclat-ritual.com" class="hover:text-brand-gold transition-colors"><i class="fa-regular fa-envelope"></i></a>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-stone-900 text-center text-xs text-stone-600">
+      <p>&copy; 2026 L’ÉCLAT LUXURY UV SKIN RITUAL. ALL RIGHTS RESERVED. POWERED BY AQUA GOAL LAB.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: Unified Multi-View Control & Roadmap/KPI logic -->
+  <script>
+    // Roadmap Data definition
+    const roadmapData = [
+      {
+        title: "Foundation",
+        time: "Months 1-3",
+        items: [
+          { icon: "✍️", name: "Brand Identity", desc: "สร้าง Storytelling ว่าด้วยเรื่อง 'The Golden Hour' เคลือบบนผิวกาย" },
+          { icon: "💻", name: "Digital Presence", desc: "เปิดตัวหน้าเว็บ Responsive Landing Page มุ่งเน้นภาพถ่ายที่ละเอียดและสะอาดตา" },
+          { icon: "✨", name: "Influencer Seeding", desc: "ส่งมอบสินค้าทดลองให้กับบิวตี้อินฟลูเอนเซอร์ในสายความงามและแฟชั่นจำนวน 20 ท่าน" }
+        ]
+      },
+      {
+        title: "Engagement",
+        time: "Months 4-6",
+        items: [
+          { icon: "🎬", name: "Content Strategy", desc: "ผลิตคอนเทนต์แนวเสียงสปา ASMR วิธีสเปรย์ออยล์และนวดกระชับไหล่และขา" },
+          { icon: "🧘‍♀️", name: "Events", desc: "จัดกิจกรรม 'Sunset Yoga & Glow' เชิญชวนกลุ่มลูกค้าทดลองผิวร่วมกับโยคะสตูดิโอ" },
+          { icon: "📈", name: "Performance Marketing", desc: "แคมเปญนำเสนอมิติความเงา (Glow Reflection) เพื่อเจาะโฆษณาสู่ผู้ซื้อตรงกลุ่มเป้าหมาย" }
+        ]
+      },
+      {
+        title: "Expansion",
+        time: "Months 7-12",
+        items: [
+          { icon: "🤝", name: "Partnership", desc: "ร่วมจัดหาพาร์ทเนอร์ เช่น โรงแรมหรูหรือรีสอร์ต เพื่อส่งมอบสินค้าในห้องพักหรู" },
+          { icon: "👑", name: "Retaining", desc: "สร้างระบบการดูแลกลุ่มแรก (Founding Members Loyalty) แลกรับการบำรุงส่วนบุคคล" }
+        ]
+      }
+    ];
+
+    // Toggle Experience view modes
+    function setViewMode(mode) {
+      const consumerView = document.getElementById('consumer-view');
+      const strategyView = document.getElementById('strategy-view');
+      const consumerNav = document.getElementById('consumer-nav');
+      const strategyNav = document.getElementById('strategy-nav');
+      
+      const btnConsumer = document.getElementById('btn-consumer-mode');
+      const btnStrategy = document.getElementById('btn-strategy-mode');
+
+      if (mode === 'consumer') {
+        // Toggle Nav & Content views
+        consumerView.classList.remove('hidden');
+        strategyView.classList.add('hidden');
+        consumerNav.classList.remove('hidden');
+        strategyNav.classList.add('hidden');
+        
+        // Update Buttons Styling
+        btnConsumer.className = "text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 bg-brand-dark text-white shadow-md";
+        btnStrategy.className = "text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-stone-600 hover:text-brand-dark";
+      } else {
+        // Toggle Nav & Content views
+        consumerView.classList.add('hidden');
+        strategyView.classList.remove('hidden');
+        consumerNav.classList.add('hidden');
+        strategyNav.classList.remove('hidden');
+        
+        // Update Buttons Styling
+        btnConsumer.className = "text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 text-stone-600 hover:text-brand-dark";
+        btnStrategy.className = "text-xs font-semibold px-4 py-1.5 rounded-full transition-all duration-300 bg-brand-dark text-white shadow-md";
+        
+        // Redraw or load components when tab is visible
+        updateRoadmap(0);
+        setTimeout(initMarginChart, 100); // Wait for DOM to register height/width
+      }
+    }
+
+    // Dynamic Roadmap Update tab
+    function updateRoadmap(index) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`tab-${index}`).classList.add('active');
+
+      const contentDiv = document.getElementById('roadmap-content');
+      contentDiv.style.opacity = 0;
+      
+      setTimeout(() => {
+        const data = roadmapData[index];
+        let html = `<h4 class="font-luxury text-3xl mb-2 text-brand-dark">Phase ${index + 1}: ${data.title}</h4>
+                    <p class="text-brand-bronze text-xs uppercase tracking-widest mb-8 font-medium">${data.time}</p>
+                    <div class="space-y-6">`;
+        
+        data.items.forEach(item => {
+          html += `
+            <div class="flex gap-4 items-start">
+              <div class="text-2xl mt-1">${item.icon}</div>
+              <div>
+                <h5 class="font-semibold text-brand-dark text-base">${item.name}</h5>
+                <p class="text-stone-500 font-light text-xs leading-relaxed mt-0.5">${item.desc}</p>
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `</div>`;
+        contentDiv.innerHTML = html;
+        contentDiv.style.opacity = 1;
+      }, 200);
+    }
+
+    // Initialize Chart.js safely upon strategy mode click
+    let myChartInstance = null;
+    function initMarginChart() {
+      const ctx = document.getElementById('marginChart');
+      if (!ctx) return;
+      
+      // Prevent duplicating instance
+      if (myChartInstance) {
+        myChartInstance.destroy();
+      }
+
+      myChartInstance = new Chart(ctx.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['แบรนด์ทั่วไป (Mass)', 'L’ÉCLAT (Premium)'],
+          datasets: [{
+            label: 'กำไรขั้นต้น (Profit Margin %)',
+            data: [35, 65],
+            backgroundColor: ['#E6DFD5', '#D4AF37'],
+            borderRadius: 8,
+            barThickness: 50
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#1C1917',
+              padding: 12,
+              titleFont: { family: 'Kanit', size: 14 },
+              bodyFont: { family: 'Kanit', size: 14 },
+              callbacks: {
+                label: function(context) {
+                  return context.raw + '% Profit Margin';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              grid: {
+                color: '#E6DFD5',
+                drawBorder: false
+              },
+              ticks: {
+                font: { family: 'Kanit' },
+                color: '#1C1917',
+                callback: function(value) { return value + '%'; }
+              }
+            },
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { family: 'Kanit', size: 12 },
+                color: '#1C1917'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // KPI Counters animation observer
+    let countersAnimated = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersAnimated) {
+          animateKPIs();
+          countersAnimated = true;
+        }
+      });
+    }, { threshold: 0.3 });
+
+    // Target the KPI card container to start numeric speed-up
+    const kpiContainer = document.getElementById('kpi-container');
+    if (kpiContainer) {
+      observer.observe(kpiContainer);
+    }
+
+    function animateKPIs() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000; // Animation running duration (ms)
+        const increment = target / (duration / 16); // Increment calculations based on ~60fps
+        let current = 0;
+
+        const updateCounter = () => {
+          current += increment;
+          if (current < target) {
+            counter.innerText = Math.ceil(current).toLocaleString();
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.innerText = target.toLocaleString();
+          }
+        };
+        updateCounter();
+      });
+    }
+
+    // Modal Notifications (Replaces raw javascript alerts)
+    function showRegistrationNotification() {
+      const modal = document.getElementById('custom-modal');
+      const emailField = document.getElementById('preorder-email');
+      if (emailField.value.trim() !== '') {
+        modal.classList.remove('hidden');
+        emailField.value = ''; // Clean input
+      }
+    }
+
+    function closeRegistrationNotification() {
+      const modal = document.getElementById('custom-modal');
+      modal.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
